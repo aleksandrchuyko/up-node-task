@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const {RequestError} = require("../utils");
+const { RequestError } = require("../utils");
 
 const { User } = require("../models/users/user");
 
@@ -20,7 +20,15 @@ const authenticate = async (req, res, next) => {
 
     const payload = jwt.verify(token, SECRET_KEY);
     const user = await User.findById(payload.id);
-    if (!user || !user.token || user.token !== token) {
+
+    if (!user) {
+      throw RequestError(401);
+    }
+    if (
+      !user.tokens.find((item) => {
+        return item === token;
+      })
+    ) {
       throw RequestError(401);
     }
     req.user = user;

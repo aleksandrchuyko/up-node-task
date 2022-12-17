@@ -4,7 +4,7 @@ const router = express.Router();
 
 const authController = require("../../controllers/auth");
 
-const { validateReqBody, authenticate } = require("../../middlewares");
+const { validateReqBody, authenticate, extendToken } = require("../../middlewares");
 
 const { schemas } = require("../../models/users/user");
 
@@ -22,7 +22,7 @@ router.post(
   controllersWrapper(authController.signin)
 );
 
-router.get("/info", authenticate, controllersWrapper(authController.info));
+router.get("/info", authenticate, extendToken, controllersWrapper(authController.info));
 
 router.get("/logout", authenticate, controllersWrapper(authController.logout));
 

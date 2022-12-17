@@ -1,10 +1,11 @@
-const checkCurrent = async (req, res) => {
-  const { email, subscription } = req.user;
-  
+const info = async (req, res) => {
+  const { id, id_type, token } = req.user;
+
   res.status(200).json({
-    email,
-    subscription,
+    id,
+    id_type,
+    token,
   });
 };
 
-module.exports = checkCurrent;
+module.exports = info;

@@ -29,7 +29,7 @@ const userSchema = new Schema(
       enum: idTypes,
     },
     tokens: {
-      type: Array,
+      type: [String],
       default: [],
     },
   },
