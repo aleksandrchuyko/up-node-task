@@ -32,6 +32,7 @@ const authenticate = async (req, res, next) => {
       throw RequestError(401);
     }
     req.user = user;
+    req.user.token = token;
 
     next();
   } catch (error) {

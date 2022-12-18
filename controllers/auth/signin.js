@@ -17,9 +17,6 @@ const signin = async (req, res) => {
   await User.findByIdAndUpdate(user._id, { $push: { tokens: token } });
   res.status(200).json({
     token,
-    user: {
-      id: user.id,
-    },
   });
 };
 
