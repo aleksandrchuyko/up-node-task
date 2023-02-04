@@ -4,13 +4,13 @@ const ping = require('ping');
 
 
 const getLatency = async (req, res) => {
-	const lat = await ping.promise.probe("www.google.com", {
+	const lat = await ping.promise.probe('google.com', {
 		timeout: false,
-		// extra: ['-i', '2'],
-		// v6: true
+		extra: ['-i', '2'],
+
 });
 
-res.status(200).json({ latency: lat.time });
+res.status(200).json({ latency: lat });
 }
 
 
