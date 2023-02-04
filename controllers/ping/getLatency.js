@@ -1,26 +1,25 @@
-// const ping = require('ping');
-const request = require('request')
+const ping = require('ping');
+const rp = require('request-promise');
 
 
 
 const getLatency = async (req, res) => {
-// 	const lat = await ping.promise.probe('google.com', {
-// 		timeout: false,
-// 		extra: ['-i', '2'],
+	const lat = await ping.promise.probe('google.com', {
+		timeout: false,
+		// extra: ['-i', '2'],
 
-// });
+});
 
 // res.status(200).json({ latency: lat });
+// const start = new Date().getTime();
 
-request({
-  uri: 'https://google.com',
-  method: 'GET',
-  time: true
-}, (err, resp) => {
-  console.log(err || resp.timings)
-})
+// const end = new Date().getTime();
+// const time = end - start;
+const out = await rp({ uri: 'http://google.com', resolveWithFullResponse: true, time: true });
 
-res.status(200).json({ latency: 'lat' });
+		console.log(out.timings)
+
+res.status(200).json({ latency: lat.time });
 }
 
 
