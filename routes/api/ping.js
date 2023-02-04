@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.get(
   '/',
   authenticate,
   extendToken,
+  cors(),
   controllersWrapper(latencyController.getLatency)
 );
 
