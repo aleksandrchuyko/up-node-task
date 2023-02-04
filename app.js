@@ -1,26 +1,28 @@
-const express = require("express");
+const express = require('express');
 require('dotenv').config();
-const logger = require("morgan");
-const cors = require("cors");
+const logger = require('morgan');
+const cors = require('cors');
 
-const authRouter = require("./routes/api/auth");
+const authRouter = require('./routes/api/auth');
+const latencyRouter = require('./routes/api/ping');
 
 const app = express();
 
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/ping', latencyRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Server error" } = err;
+  const { status = 500, message = 'Server error' } = err;
   res.status(status).json({ message });
 });
 

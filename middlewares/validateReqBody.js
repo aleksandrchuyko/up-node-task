@@ -1,4 +1,4 @@
-const { RequestError } = require("../utils");
+const { RequestError } = require('../utils');
 
 const validateReqBody = (schema) => {
   const wrap = (req, res, next) => {

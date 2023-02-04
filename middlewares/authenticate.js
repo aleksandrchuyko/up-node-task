@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const { RequestError } = require("../utils");
+const { RequestError } = require('../utils');
 
-const { User } = require("../models/users/user");
+const { User } = require('../models/users/user');
 
 const { SECRET_KEY } = process.env;
 
@@ -12,9 +12,9 @@ const authenticate = async (req, res, next) => {
     if (!autHeader) {
       throw RequestError(401);
     }
-    const [bearer, token] = req.headers.authorization.split(" ");
+    const [bearer, token] = req.headers.authorization.split(' ');
 
-    if (bearer !== "Bearer") {
+    if (bearer !== 'Bearer') {
       throw RequestError(401);
     }
 
@@ -38,7 +38,7 @@ const authenticate = async (req, res, next) => {
   } catch (error) {
     if (!error.status) {
       error.status = 401;
-      error.message = "Unauthorized";
+      error.message = 'Unauthorized';
     }
     next(error);
   }

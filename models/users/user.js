@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+const { Schema, model } = require('mongoose');
+const Joi = require('joi');
 
-const { handleMongoSaveError, validator } = require("../../utils");
+const { handleMongoSaveError, validator } = require('../../utils');
 
 const regexp = {
   email:
@@ -9,19 +9,19 @@ const regexp = {
   phone:
     /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
 };
-const idTypes = ["phone", "email"];
+const idTypes = ['phone', 'email'];
 
 const userSchema = new Schema(
   {
     password: {
       type: String,
-      required: [true, "Set password for user"],
+      required: [true, 'Set password for user'],
       minlength: 8,
     },
     id: {
       type: String,
-      validate: [validator, "Email or phone number only"],
-      required: [true, "Email or phone number is required"],
+      validate: [validator, 'Email or phone number only'],
+      required: [true, 'Email or phone number is required'],
       unique: true,
     },
     id_type: {
@@ -36,9 +36,9 @@ const userSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-userSchema.post("save", handleMongoSaveError);
+userSchema.post('save', handleMongoSaveError);
 
-const User = model("user", userSchema);
+const User = model('user', userSchema);
 
 const registerSchema = Joi.object({
   id: Joi.alternatives()
@@ -46,7 +46,7 @@ const registerSchema = Joi.object({
       Joi.string().pattern(regexp.email).required(),
       Joi.string().pattern(regexp.phone).required()
     )
-    .messages({ "alternatives.match": "Email or phone number only" }),
+    .messages({ 'alternatives.match': 'Email or phone number only' }),
   password: Joi.string().min(8).required(),
 });
 
@@ -56,7 +56,7 @@ const loginSchema = Joi.object({
       Joi.string().pattern(regexp.email).required(),
       Joi.string().pattern(regexp.phone).required()
     )
-    .messages({ "alternatives.match": "Email or phone number only" }),
+    .messages({ 'alternatives.match': 'Email or phone number only' }),
   password: Joi.string().min(8).required(),
 });
 
