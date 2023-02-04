@@ -1,5 +1,5 @@
-const ping = require('ping');
-
+// const ping = require('ping');
+const request = require('request')
 
 
 
@@ -11,13 +11,15 @@ const getLatency = async (req, res) => {
 // });
 
 // res.status(200).json({ latency: lat });
-var hosts = ['192.168.1.1', 'google.com', 'yahoo.com'];
-hosts.forEach(function(host){
-    ping.sys.probe(host, function(isAlive){
-        const msg = isAlive ? 'host ' + host + ' is alive' : 'host ' + host + ' is dead';
-        console.log(msg);
-    });
-});
+
+request({
+  uri: 'https://google.com',
+  method: 'GET',
+  time: true
+}, (err, resp) => {
+  console.log(err || resp.timings)
+})
+
 res.status(200).json({ latency: 'lat' });
 }
 
