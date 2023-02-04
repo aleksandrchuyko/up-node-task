@@ -8,7 +8,7 @@ const getLatency = async (req, res) => {
 		timeout: 10,
 		extra: ['-i', '2'],
 });
-res.status(200).json({ latency: lat.time });
+res.status(200).json({ latency: lat });
 }
 
 module.exports = getLatency;
