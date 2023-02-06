@@ -2,7 +2,6 @@ const express = require('express');
 require('dotenv').config();
 const logger = require('morgan');
 const cors = require('cors');
-const responseTime = require('response-time')
 
 const authRouter = require('./routes/api/auth');
 const latencyRouter = require('./routes/api/ping');
@@ -14,7 +13,6 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
-app.use(responseTime())
 
 app.use('/api/auth', authRouter);
 app.use('/api/ping', latencyRouter);
